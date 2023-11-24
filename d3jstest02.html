@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3 JS Test 01</title>
+    <!-- Import d3js from cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <script>
+        // Append d3js svg to body tag
         var svg=d3.select("body")
             .append("svg")
             .attr('width', 800)
             .attr('height',800)
             .style('background-color','#dddddd');
+        // Set goals data array
         var goals=[4,6,2,1];
+        // Create data array
         var data=[
                 {"hours studied":5,"test score":80},
                 {"hours studied":8,"test score":55},
@@ -24,11 +28,13 @@
                 {"hours studied":4,"test score":92},
                 {"hours studied":5,"test score":73}
             ]
+        // Create scale linear for 0-10 domain and 100-700 range for padding 100
         var myScale=d3.scaleLinear().domain([0,10]).range([100,700]);
+        // Create scale linear for x values 0-10 domain for range from 0 to 800
         var xScale=d3.scaleLinear().domain([0,10]).range([0,800]);
+        // Create svale linear for y values 0-100 domain for range from 800 to 0 for reverse order to set position bottom-left
         var yScale=d3.scaleLinear().domain([0,100]).range([800,0]);
-    
-
+        // Create circles
         var circles=svg.selectAll('circle')
             .data(data)
             .enter()
@@ -41,7 +47,9 @@
             })
             .attr('r',5)
             .on("click",function(d,p){
+                // log to console scale values for each data row
                 console.log(myScale(p));
+                // log to console domain value for each data row
                 console.log(p);
             });
     </script>

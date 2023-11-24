@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3 JS Test 01</title>
+    <!-- D3JS Version 4 script from d3js.org -->
+    <!-- <script src="https:/d3js.org/d3.v4.min.js"></script> -->
+    <!-- D3JS Version 7 script from d3js.org -->
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+    <!-- Import 3djs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <script>
+        // Append svg to body tag
         var svg=d3.select("body")
             .append("svg")
             .attr('width', 800)
             .attr('height',800)
             .style('background-color','#dddddd');
+        // Goals Array
         var goals=[4,6,2,1];
-        var myScale=d3.scaleLinear().domain([0,10]).range([100,700]);
-        //var myScale=d3.scale.linear().domain([0,10]).range([100,700]);
-    
-
+        // Create linear scale
+        var myScale=d3.scaleLinear().domain([0,10]).range([100,700]);   
+        // Create Circles
         var circles=svg.selectAll('circle')
             .data(goals)
             .enter()
