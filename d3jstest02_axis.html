@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 JS Test 01</title>
+    <!-- Inclide d3js  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <!-- Initiate script -->
+    <script>
+        // append d3js svg to body tag
+        var svg=d3.select("body")
+            .append("svg")
+            .attr('width', 800)
+            .attr('height',800)
+            .style('background-color','#dddddd');
+        // Set data for circles to plot
+        var data=[
+                {"hours studied":5,"test score":80},
+                {"hours studied":8,"test score":55},
+                {"hours studied":4,"test score":65},
+                {"hours studied":9,"test score":47},
+                {"hours studied":6,"test score":78},
+                {"hours studied":5,"test score":87},
+                {"hours studied":4,"test score":92},
+                {"hours studied":5,"test score":73}
+            ]
+        // Set graph title via svg text
+        var title=svg.append("text")
+                .attr("transform","translate(400,50)")
+                .text("Tests Score based on hours studied")
+                .style("font-size","2.8pc")
+                .style("font-weight","bold")
+                .attr("text-anchor","middle");
+
+        // Create scale linear for 10 value steps and posirion relative to padding of 100
+        var xScale=d3.scaleLinear().domain([0,10]).range([100,700]);
+        // Set bottom axis
+        var xAxis=d3.axisBottom()
+                //.tickValues([0,2,4,6,8,10])
+                .scale(xScale);
+        // Append xaxis to group and set properies
+        svg.append("g")
+                .attr("transform","translate(0,700)")
+                .call(xAxis)
+                .style("font-size","1.5pc");
+        // Appendo bottom axis label and properties
+        var xLabel=svg.append("text")
+                .attr("transform","translate(400,760)")
+                .text("Hours Studied")
+                .style("font-size","2.3pc")
+                .style("font-weight","bold")
+                .attr("text-anchor","middle");   
+        // Create scale for y axis with values between 1-100 compared to 700-100 range for 100 padding
+        var yScale=d3.scaleLinear().domain([0,100]).range([700,100]);
+        // Create left axis
+        var yAxis=d3.axisLeft()
+                .scale(yScale)
+        // Create axis label and properties
+        var xLabel=svg.append("text")
+                .attr("transform","translate(50,400) rotate(270)")
+                .text("Test Score")
+                .style("font-size","2.3pc")
+                .style("font-weight","bold")
+                .attr("text-anchor","middle");
+        // Appendo yaxis to gropu ans properties
+        svg.append("g")
+                .attr("transform","translate(100,0)")
+                .call(yAxis)
+                .style("font-size","1.5pc");
+        // Append circles set x and y values and radius
+        var circles=svg.selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('cx',function(d){
+                return xScale(d["hours studied"]);
+            })
+            .attr('cy',function(d){
+                return yScale(d["test score"]);
+            })
+            .attr('r',5)
+            .on("click",function(d,p){
+                // Log scale depending on circle domain value for each data row
+                console.log(myScale(p));
+                console.log(p);
+            });
+    </script>
+</body>
+</html>

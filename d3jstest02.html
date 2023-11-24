@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 JS Test 01</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <script>
+        var svg=d3.select("body")
+            .append("svg")
+            .attr('width', 800)
+            .attr('height',800)
+            .style('background-color','#dddddd');
+        var goals=[4,6,2,1];
+        var data=[
+                {"hours studied":5,"test score":80},
+                {"hours studied":8,"test score":55},
+                {"hours studied":4,"test score":65},
+                {"hours studied":9,"test score":47},
+                {"hours studied":6,"test score":78},
+                {"hours studied":5,"test score":87},
+                {"hours studied":4,"test score":92},
+                {"hours studied":5,"test score":73}
+            ]
+        var myScale=d3.scaleLinear().domain([0,10]).range([100,700]);
+        var xScale=d3.scaleLinear().domain([0,10]).range([0,800]);
+        var yScale=d3.scaleLinear().domain([0,100]).range([800,0]);
+    
+
+        var circles=svg.selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('cx',function(d){
+                return xScale(d["hours studied"]);
+            })
+            .attr('cy',function(d){
+                return yScale(d["test score"]);
+            })
+            .attr('r',5)
+            .on("click",function(d,p){
+                console.log(myScale(p));
+                console.log(p);
+            });
+    </script>
+</body>
+</html>
